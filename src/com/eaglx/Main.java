@@ -2,6 +2,8 @@ package com.eaglx;
 
 import com.eaglx.devices.Mouse;
 
+import java.util.concurrent.TimeUnit;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -14,6 +16,11 @@ public class Main {
             System.exit(-1);
         }
 
+        try {
+            TimeUnit.SECONDS.sleep(20);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         System.exit(0);
     }
