@@ -5,15 +5,16 @@ import java.io.*;
 
 public class Server {
     private ServerSocket serveSock;
+    private int serverPort = 8090;
     private Socket client;
     private InputStream input;
-    private OutputStream output;
+    //private OutputStream output;
     private ObjectInputStream objectInputStream;
 
     public Server()
     {
         try {
-            serveSock = new ServerSocket(8090);
+            serveSock = new ServerSocket(serverPort);
         } catch (IOException e) {
             e.printStackTrace();
             serveSock = null;
@@ -23,14 +24,15 @@ public class Server {
     public Server(int port)
     {
         try {
-            serveSock = new ServerSocket(port);
+            serverPort = port;
+            serveSock = new ServerSocket(serverPort);
         } catch (IOException e) {
             e.printStackTrace();
             serveSock = null;
         }
     }
 
-    public boolean CheckIfOk(){
+    public boolean checkIfOk(){
         if(serveSock == null){
             return false;
         }
@@ -39,7 +41,11 @@ public class Server {
         }
     }
 
-    public Package Read(){
+    public int getServerPort(){
+        return serverPort;
+    }
+
+    public Package read(){
         try {
             return (Package) objectInputStream.readObject();
         } catch (IOException e) {
@@ -51,7 +57,7 @@ public class Server {
         }
     }
 
-    public boolean Start(){
+    public boolean start(){
        try {
            client = serveSock.accept();
            input = client.getInputStream();
@@ -64,7 +70,7 @@ public class Server {
 
     }
 
-    public boolean Stop(){
+    public boolean stop(){
         try {
             objectInputStream.close();
             client.close();

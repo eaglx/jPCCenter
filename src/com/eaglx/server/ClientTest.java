@@ -2,7 +2,7 @@ package com.eaglx.server;
 
 public class ClientTest {
     // need host and port, we want to connect to the ServerSocket at port 7777
-//        Socket socket = new Socket("localhost", 7777);
+//        Socket socket = new Socket("localhost", 8090);
 //        System.out.println("Connected!");
 
     // get the output stream from the socket.
