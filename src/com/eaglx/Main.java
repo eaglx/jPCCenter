@@ -4,6 +4,8 @@ import com.eaglx.devices.Mouse;
 import com.eaglx.server.Package;
 import com.eaglx.server.Server;
 
+import java.io.IOException;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -32,7 +34,9 @@ public class Main {
             System.out.println("ERROR: Cannot accept connection!");
         }
         else{
-            Package p = server.read();
+            System.out.println("INFO: Server connected with client");
+            Package p = null;
+            p = server.read();
             if(p == null){
                 System.out.println("ERROR: Recive no data!");
             }
@@ -42,6 +46,8 @@ public class Main {
                 System.out.printf("Y = %d%n", p.getMouseYPos());
             }
         }
+
+        server.stop();
 
         System.exit(0);
     }

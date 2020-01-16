@@ -45,8 +45,10 @@ public class Server {
         return serverPort;
     }
 
-    public Package read(){
+    public Package read() {
         try {
+            input = client.getInputStream();
+            objectInputStream = new ObjectInputStream(input);
             return (Package) objectInputStream.readObject();
         } catch (IOException e) {
             e.printStackTrace();
@@ -60,8 +62,6 @@ public class Server {
     public boolean start(){
        try {
            client = serveSock.accept();
-           input = client.getInputStream();
-           objectInputStream = new ObjectInputStream(input);
            return true;
        } catch (Exception e) {
            e.printStackTrace();
