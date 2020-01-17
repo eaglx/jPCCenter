@@ -16,14 +16,14 @@ public class Mouse extends Device {
         yCurrentPosition = (int) b.getY();
     }
 
-    public void Move(int xPosition, int yPosition) {
-        if((xCurrentPosition == xPosition) && (yCurrentPosition == yPosition)){
+    public void Move(int x, int y) {
+        if((x == 0) && (y == 0)) {
             ;
         }
         else {
-            robot.mouseMove(xPosition, yPosition);
-            xCurrentPosition = xPosition;
-            yCurrentPosition = yPosition;
+            xCurrentPosition += x;
+            yCurrentPosition += y;
+            robot.mouseMove(xCurrentPosition, yCurrentPosition);
         }
     }
 
@@ -35,7 +35,7 @@ public class Mouse extends Device {
         robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
     }
 
-    public void RClickPress(){
+    public void RClickPress() {
         robot.mousePress(InputEvent.BUTTON2_DOWN_MASK);
     }
 

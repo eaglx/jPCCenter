@@ -49,16 +49,12 @@ public class Server {
 
     public Package read() {
         try {
-            input = client.getInputStream();
-            objectInputStream = new ObjectInputStream(input);
             return (Package) objectInputStream.readObject();
 //            BufferedReader inFromClient = new BufferedReader(new InputStreamReader(input));
 //            return inFromClient.readLine();
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            return null;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("ERROR: Failed when read a data from client!");
             return null;
         }
     }
@@ -66,6 +62,8 @@ public class Server {
     public boolean start(){
        try {
            client = serveSock.accept();
+           input = client.getInputStream();
+           objectInputStream = new ObjectInputStream(input);
            return true;
        } catch (Exception e) {
            e.printStackTrace();
@@ -74,15 +72,13 @@ public class Server {
 
     }
 
-    public boolean stop(){
+    public void stop(){
         try {
             objectInputStream.close();
             client.close();
             serveSock.close();
-            return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
     }
 }
