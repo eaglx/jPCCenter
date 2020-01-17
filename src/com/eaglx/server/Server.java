@@ -53,8 +53,8 @@ public class Server {
 //            BufferedReader inFromClient = new BufferedReader(new InputStreamReader(input));
 //            return inFromClient.readLine();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
             System.out.println("ERROR: Failed when read a data from client!");
+            System.out.println("INFO: Client may have closed the connection");
             return null;
         }
     }

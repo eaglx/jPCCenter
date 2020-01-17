@@ -36,10 +36,10 @@ public class Mouse extends Device {
     }
 
     public void RClickPress() {
-        robot.mousePress(InputEvent.BUTTON2_DOWN_MASK);
+        robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
     }
 
     public void RClickRelease(){
-        robot.mouseRelease(InputEvent.BUTTON2_DOWN_MASK);
+        robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
     }
 }

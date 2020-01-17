@@ -41,14 +41,17 @@ public class Main {
                     break;
                 } else {
                     if(p.getMod() == Package.Mod.MOVECURSOR) {
+                        System.out.println("INFO: Move cursor");
                         mouse.Move(p.getMouseXPos(), p.getMouseYPos());
                     }
                     else if(p.getMod() == Package.Mod.CLICKMOUSE) {
                         if(p.getMouseBtnClick() == Package.MouseBtn.LEFT){
+                            System.out.println("INFO: Left click");
                             mouse.LClickPress();
                             mouse.LClickRelease();
                         }
                         else {
+                            System.out.println("INFO: Right click");
                             mouse.RClickPress();
                             mouse.RClickRelease();
                         }

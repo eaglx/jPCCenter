@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="jPCCenter:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/jPCCenter_jar</output-path>
+    <root id="archive" name="jPCCenter.jar">
+      <element id="module-output" name="jPCCenter" />
+    </root>
+  </artifact>
+</component>
