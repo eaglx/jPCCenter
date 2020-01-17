@@ -1,5 +1,7 @@
 package com.eaglx.server;
 
+import com.example.jremotecontrol.Network.Package;
+
 import java.net.*;
 import java.io.*;
 
@@ -50,6 +52,8 @@ public class Server {
             input = client.getInputStream();
             objectInputStream = new ObjectInputStream(input);
             return (Package) objectInputStream.readObject();
+//            BufferedReader inFromClient = new BufferedReader(new InputStreamReader(input));
+//            return inFromClient.readLine();
         } catch (IOException e) {
             e.printStackTrace();
             return null;

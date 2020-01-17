@@ -1,10 +1,8 @@
 package com.eaglx;
 
 import com.eaglx.devices.Mouse;
-import com.eaglx.server.Package;
+import com.example.jremotecontrol.Network.Package;
 import com.eaglx.server.Server;
-
-import java.io.IOException;
 
 public class Main {
 
@@ -41,6 +39,8 @@ public class Main {
                 System.out.println("ERROR: Recive no data!");
             }
             else {
+//                System.out.println("INFO: Receive from client");
+//                System.out.printf("%s%n", p);
                 System.out.println("INFO: Mouse new cordinates:");
                 System.out.printf("X = %d%n", p.getMouseXPos());
                 System.out.printf("Y = %d%n", p.getMouseYPos());
