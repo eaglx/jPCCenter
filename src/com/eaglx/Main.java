@@ -1,13 +1,15 @@
 package com.eaglx;
 
 import com.eaglx.devices.Mouse;
-import com.example.jremotecontrol.Network.Package;
-import com.eaglx.server.Server;
+
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("jOCCenter ver0.1");
+        Scanner usrInput = new Scanner(System.in);
+
+        System.out.println("jOCCenter ver0.2");
         System.out.println("################");
 
         Mouse mouse = new Mouse();
@@ -19,52 +21,35 @@ public class Main {
             System.out.println("INFO: The mouse's controller is working");
         }
 
-        Server server = new Server();
-        if(!server.checkIfOk()) {
-            System.out.println("ERROR: Cannot start TCP server!");
-            System.exit(-2);
-        }
-        else{
-            System.out.printf("INFO: TCP server is working on port %d%n", server.getServerPort());
-        }
-        System.out.println("INFO: Server wait for connections ...");
-        if(!server.start()){
-            System.out.println("ERROR: Cannot accept connection!");
-        }
-        else{
-            System.out.println("INFO: Server connected with client");
-            Package p = null;
+        System.out.println("Start server? (Y/N)");
+        String usrDecision = usrInput.nextLine();
+        if(usrDecision.equals("Y") || usrDecision.equals("y")) {
+            SrvThread srv = new SrvThread(mouse);
+            srv.start();
+            System.out.println("MAIN-TH-INFO: To close the server press q");
+            System.out.println("Start server? (Y/N)");
             while(true) {
-                p = server.read();
-                if (p == null) {
-                    System.out.println("ERROR: Recive no data!");
-                    break;
-                } else {
-                    if(p.getMod() == Package.Mod.MOVECURSOR) {
-                        System.out.println("INFO: Move cursor");
-                        mouse.Move(p.getMouseXPos(), p.getMouseYPos());
-                    }
-                    else if(p.getMod() == Package.Mod.CLICKMOUSE) {
-                        if(p.getMouseBtnClick() == Package.MouseBtn.LEFT){
-                            System.out.println("INFO: Left click");
-                            mouse.LClickPress();
-                            mouse.LClickRelease();
-                        }
-                        else {
-                            System.out.println("INFO: Right click");
-                            mouse.RClickPress();
-                            mouse.RClickRelease();
-                        }
-                    }
-                    else {
-                        System.out.println("ERROR: Wrong mode!");
+                usrDecision = usrInput.nextLine();
+                if (usrDecision.equals("q")) {
+                    System.out.println("MAIN-TH-INFO: Closing the server");
+                    srv.interrupt();
+                    try {
+                        srv.join();
+                        break;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } finally {
+                        break;
                     }
                 }
             }
         }
-
-        server.stop();
-
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("INFO: The server is closed");
         System.exit(0);
     }
 }

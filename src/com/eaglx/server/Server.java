@@ -74,8 +74,12 @@ public class Server {
 
     public void stop(){
         try {
-            objectInputStream.close();
-            client.close();
+            if(objectInputStream != null) {
+                objectInputStream.close();
+            }
+            if(client != null) {
+                client.close();
+            }
             serveSock.close();
         } catch (Exception e) {
             e.printStackTrace();
